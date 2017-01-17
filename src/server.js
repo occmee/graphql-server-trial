@@ -6,7 +6,7 @@ import { schema } from './schema';
 
 const app = new koa();
 const router = new koaRouter();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 router.all('/graphql', convert(graphqlHTTP({
   schema,
@@ -15,4 +15,6 @@ router.all('/graphql', convert(graphqlHTTP({
 
 app.use(router.routes());
 app.use(router.allowedMethods());
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`App is running on port ${PORT}...`);
+});
