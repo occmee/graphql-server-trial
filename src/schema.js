@@ -10,6 +10,11 @@ enum ProjectStatus {
   DONE
 }
 
+enum AccessPolicy {
+  PUBLIC
+  PRIVATE
+}
+
 enum NodeType {
   POST_TEXT
   POST_FILE
@@ -28,7 +33,7 @@ enum NodeType {
 
 type Query {
   hello: String
-  project: Project
+  project(id: ID!): Project
 }
 
 type Project {
@@ -36,13 +41,33 @@ type Project {
   companyId: Int
   status: ProjectStatus
   title: String
-  owner: [User]
+  access: Access
+  owner: User
+  members: [User]
+  tags: [Tag]
+  pins: [Node]
+  files: [Node]
   nodes: [Node]
 }
 
 type User {
   id: ID!
   name: String
+}
+
+type Access {
+  policy: AccessPolicy
+  allowed: [User]
+}
+
+type Tag {
+  id: ID
+  name: String
+}
+
+type Like {
+  count: Int
+  byMe: Boolean
 }
 
 type Node {
@@ -52,6 +77,52 @@ type Node {
   nodes: [Node]
 }
 
+# union Post = TextPost | FilePost
+# union Log = StatusLog | TagLog | MemberLog | PostLog
+# union NodeBody = Post | Log  # union の union はできない
+
+union __NodeBody = TextPost | FilePost | StatusLog | TagLog | MemberLog | PostLog
+
+type TextPost {
+  id: Int
+  author: User
+  like: Like
+  title: String
+  body: String
+}
+
+type FilePost {
+  id: Int
+  author: User
+  like: Like
+  title: String
+  body: String
+  filename: String
+  url: String
+}
+
+type StatusLog {
+  doer: User
+  status: ProjectStatus
+}
+
+type TagLog {
+  doer: User
+  tag: Tag
+}
+
+type MemberLog {
+  doer: User
+  member: User
+}
+
+union Post = TextPost | FilePost
+type PostLog {
+  doer: User
+  post: Post
+}
+
+
 type NodeBody {
   id: ID
   author: User
@@ -60,14 +131,11 @@ type NodeBody {
   filename: String
   url: String
   doer: User
+  status: ProjectStatus
+  tag: Tag
   member: User
   post: NodeBody
   like: Like
-}
-
-type Like {
-  count: Int
-  byMe: Boolean
 }
 
 schema {
@@ -76,13 +144,13 @@ schema {
 
 const resolvers = {
   Query: {
-    hello(root) {
+    hello(obj, args, context, info) {
       return 'world';
     },
 
-    project(root) {
+    project(obj, args, context, info) {
       return {
-        id: 1,
+        id: args.id,
         title: "CRMの運用を改善する",
         status: "in_progress",
         owner: { // "このプロジェクトを作成した人",
@@ -90,7 +158,7 @@ const resolvers = {
           name: "Taro"
         },
         access: {
-          policy: "private", // 'public'（誰でも見れる） / 'private'（allowed に登録されているユーザだけ見れる）",
+          policy: "PRIVATE", // 'public'（誰でも見れる） / 'private'（allowed に登録されているユーザだけ見れる）",
           allowed: [
             {
               id: 1,
