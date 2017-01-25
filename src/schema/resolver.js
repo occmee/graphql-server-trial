@@ -1,6 +1,6 @@
 import { makeExecutableSchema } from 'graphql-tools';
-import { project } from './db/mocks';
-// import { Company, User } from './db/models';
+import { project } from '../db/mocks';
+// import { Company, User } from '../db/models';
 
 const fakeDatabase = {
   companies: [],
