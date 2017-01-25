@@ -5,7 +5,7 @@ import { Company } from './'
 export const User = sequelize.define('user', {
   firstName: {
     type: Sequelize.STRING,
-    field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
+    field: 'first_name'
   },
   lastName: {
     type: Sequelize.STRING,
@@ -26,20 +26,6 @@ export const User = sequelize.define('user', {
 }, {
   freezeTableName: true, // Model tableName will be the same as the model name
   // underscored: true // Auto generated columns (foreign key, timestamp, etc) should use snake case
-  /*
-  scopes: {
-    withCompany: (id) => {
-      return {
-        where: {
-          id: id
-        },
-        include: [
-          { model: Company }
-        ]
-      };
-    }
-  }
-  */
 });
 
 User.belongsTo(Company, {foreignKey: 'company_id'});
