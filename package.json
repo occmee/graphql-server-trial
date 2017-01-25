@@ -17,7 +17,9 @@
     "koa-convert": "^1.2.0",
     "koa-graphql": "^0.6.0",
     "koa-router": "^7.0.1",
-    "nodemon": "^1.11.0"
+    "mysql": "^2.12.0",
+    "nodemon": "^1.11.0",
+    "sequelize": "^3.29.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

@@ -3,10 +3,13 @@ import koaRouter from 'koa-router'; // koa-router@next
 import convert from 'koa-convert';
 import graphqlHTTP from 'koa-graphql';
 import { schema } from './schema';
+import { initTables } from './db/models';
 
 const app = new koa();
 const router = new koaRouter();
 const port = process.env.PORT || 3000;
+
+// initTables();
 
 router.all('/graphql', convert(graphqlHTTP({
   schema,
