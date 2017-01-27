@@ -1,24 +1,185 @@
+// import GraphQLToolsTypes from "graphql-tools-types"
 
-export const typeDefs = [`
-
-schema {
-  query: Query,
-  mutation: Mutation
+const Query = `
+type Query {
+  hello: String
+  project(id: ID!): Project
+  company(id: ID!): Company
+  user(id: ID!): User
 }
+`;
 
-scalar Date
+const Mutation = `
+type Mutation {
+  createCompany(input: CompanyInput): Company
+  updateCompany(id: ID!, input: CompanyInput): Company
+}
+`;
 
+// type, union ----
+
+const Company = `
+type Company {
+  id: ID!
+  name: String!
+  phoneNumber: String
+  adminId: Int
+  admin: User
+}
+`;
+
+const User = `
+type User {
+  id: ID!
+  firstName: String
+  lastName: String
+  email: String
+  name: String
+  companyId: Int
+  company: Company
+}
+`;
+
+const Project = `
+type Project {
+  id: ID!
+  companyId: Int
+  status: ProjectStatus
+  title: String
+  access: Access
+  owner: User
+  members: [User]
+  tags: [Tag]
+  pins: [Node]
+  files: [Node]
+  nodes: [Node]
+}
+`;
+
+const Access = `
+type Access {
+  policy: AccessPolicy
+  allowed: [User]
+}
+`;
+
+const Tag = `
+type Tag {
+  id: ID
+  name: String
+}
+`;
+
+const Like = `
+type Like {
+  count: Int
+  byMe: Boolean
+}
+`;
+
+const Node = `
+type Node {
+  type: NodeType
+  timestamp: Date
+  payload: NodeBody
+  nodes: [Node]
+}
+`;
+
+const NodeBody = `
+union NodeBody = TextPost | FilePost | StatusLog | TagLog | MemberLog | PostLog
+`;
+
+const TextPost = `
+type TextPost {
+  id: Int
+  author: User
+  like: Like
+  title: String
+  body: String
+}
+`;
+
+const FilePost = `
+type FilePost {
+  id: Int
+  author: User
+  like: Like
+  title: String
+  body: String
+  filename: String
+  url: String
+}
+`;
+
+const StatusLog = `
+type StatusLog {
+  doer: User
+  status: ProjectStatus
+}
+`;
+
+const TagLog = `
+type TagLog {
+  doer: User
+  tag: Tag
+}
+`;
+
+const MemberLog = `
+type MemberLog {
+  doer: User
+  member: User
+}
+`;
+
+const Post = `
+union Post = TextPost | FilePost
+`;
+
+const PostLog = `
+type PostLog {
+  doer: User
+  post: Post
+}
+`;
+
+// input -----
+
+const CompanyInput = `
+input CompanyInput {
+  companyName: String
+  phoneNumber: String
+  admin: UserInput
+}
+`;
+
+const UserInput = `
+input UserInput {
+  firstName: String
+  lastName: String
+  email: String
+}
+`;
+
+// enum -----
+
+const ProjectStatus = `
 enum ProjectStatus {
   PENDING
   IN_PROGRESS
   DONE
 }
+`;
 
+const AccessPolicy = `
 enum AccessPolicy {
   PUBLIC
   PRIVATE
 }
+`;
 
+const NodeType = `
 enum NodeType {
   POST_TEXT
   POST_FILE
@@ -34,130 +195,45 @@ enum NodeType {
   LOG_POST_UPDATE
   LOG_POST_REMOVE
 }
+`;
 
-type Query {
-  hello: String
-  project(id: ID!): Project
-  company(id: ID!): Company
-  user(id: ID!): User
+export const typeDefs = [
+  Query,
+  Mutation,
+  // type, union ---
+  Company,
+  User,
+  Project,
+  Access,
+  Tag,
+  Like,
+  Node,
+  NodeBody,
+  TextPost,
+  FilePost,
+  StatusLog,
+  TagLog,
+  MemberLog,
+  Post,
+  PostLog,
+  // input ---
+  CompanyInput,
+  UserInput,
+  // enum ---
+  ProjectStatus,
+  AccessPolicy,
+  NodeType,
+`
+schema {
+  query: Query,
+  mutation: Mutation
 }
 
-type Mutation {
-  createCompany(input: CompanyInput): Company
-  updateCompany(id: ID!, input: CompanyInput): Company
-}
-
-input CompanyInput {
-  companyName: String
-  phoneNumber: String
-  admin: UserInput
-}
-
-input UserInput {
-  firstName: String
-  lastName: String
-  email: String
-}
-
-type Company {
-  id: ID!
-  name: String!
-  phoneNumber: String
-  adminId: Int
-  admin: User
-}
-
-type User {
-  id: ID!
-  firstName: String
-  lastName: String
-  email: String
-  name: String
-  companyId: Int
-  company: Company
-}
-
-type Project {
-  id: ID!
-  companyId: Int
-  status: ProjectStatus
-  title: String
-  access: Access
-  owner: User
-  members: [User]
-  tags: [Tag]
-  pins: [Node]
-  files: [Node]
-  nodes: [Node]
-}
-
-type Access {
-  policy: AccessPolicy
-  allowed: [User]
-}
-
-type Tag {
-  id: ID
-  name: String
-}
-
-type Like {
-  count: Int
-  byMe: Boolean
-}
-
-type Node {
-  type: NodeType
-  timestamp: Date
-  payload: NodeBody
-  nodes: [Node]
-}
+scalar Date
 
 # union Post = TextPost | FilePost
 # union Log = StatusLog | TagLog | MemberLog | PostLog
 # union NodeBody = Post | Log  # union の union はできない
-
-union NodeBody = TextPost | FilePost | StatusLog | TagLog | MemberLog | PostLog
-
-type TextPost {
-  id: Int
-  author: User
-  like: Like
-  title: String
-  body: String
-}
-
-type FilePost {
-  id: Int
-  author: User
-  like: Like
-  title: String
-  body: String
-  filename: String
-  url: String
-}
-
-type StatusLog {
-  doer: User
-  status: ProjectStatus
-}
-
-type TagLog {
-  doer: User
-  tag: Tag
-}
-
-type MemberLog {
-  doer: User
-  member: User
-}
-
-union Post = TextPost | FilePost
-type PostLog {
-  doer: User
-  post: Post
-}
-
 
 type __NodeBody {
   id: ID
