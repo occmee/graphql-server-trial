@@ -54,7 +54,7 @@ export function project(id) {
     ],
     pins: [
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "POST_TEXT",
         payload: {
           id: 1,
@@ -67,7 +67,7 @@ export function project(id) {
         }
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "POST_FILE",
         payload: {
           id: 9,
@@ -82,7 +82,7 @@ export function project(id) {
     ],
     files: [
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "POST_FILE",
         payload: {
           id: 9,
@@ -95,7 +95,7 @@ export function project(id) {
         }
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "POST_IMAGE",
         payload: {
           id: 5,
@@ -108,7 +108,7 @@ export function project(id) {
         }
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "COMMENT_IMAGE",
         payload: {
           id: 3,
@@ -121,7 +121,7 @@ export function project(id) {
         }
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "COMMENT_FILE",
         payload: {
           id: 4,
@@ -134,7 +134,7 @@ export function project(id) {
         }
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "COMMENT_IMAGE",
         payload: {
           id: 7,
@@ -147,7 +147,7 @@ export function project(id) {
         }
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "COMMENT_FILE",
         payload: {
           id: 8,
@@ -160,7 +160,7 @@ export function project(id) {
         }
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "COMMENT_IMAGE",
         payload: {
           id: 11,
@@ -173,7 +173,7 @@ export function project(id) {
         }
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "COMMENT_FILE",
         payload: {
           id: 12,
@@ -188,7 +188,7 @@ export function project(id) {
     ],
     nodes: [
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "POST_TEXT",
         payload: {
           id: 1,
@@ -205,7 +205,7 @@ export function project(id) {
         },
         nodes: [
           {
-            timestamp: "2016-08-15T02:02:06.000Z",
+            timestamp: new Date(),
             type: "COMMENT_TEXT",
             payload: {
               id: 2,
@@ -221,7 +221,7 @@ export function project(id) {
             }
           },
           {
-            timestamp: "2016-08-15T02:02:06.000Z",
+            timestamp: new Date(),
             type: "COMMENT_IMAGE",
             payload: {
               id: 3,
@@ -239,7 +239,7 @@ export function project(id) {
             }
           },
           {
-            timestamp: "2016-08-15T02:02:06.000Z",
+            timestamp: new Date(),
             type: "COMMENT_FILE",
             payload: {
               id: 4,
@@ -259,7 +259,7 @@ export function project(id) {
         ]
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "POST_IMAGE",
         payload: {
           id: 5,
@@ -278,7 +278,7 @@ export function project(id) {
         },
         nodes: [
           {
-            timestamp: "2016-08-15T02:02:06.000Z",
+            timestamp: new Date(),
             type: "COMMENT_TEXT",
             payload: {
               id: 6,
@@ -294,7 +294,7 @@ export function project(id) {
             }
           },
           {
-            timestamp: "2016-08-15T02:02:06.000Z",
+            timestamp: new Date(),
             type: "COMMENT_IMAGE",
             payload: {
               id: 7,
@@ -312,7 +312,7 @@ export function project(id) {
             }
           },
           {
-            timestamp: "2016-08-15T02:02:06.000Z",
+            timestamp: new Date(),
             type: "COMMENT_FILE",
             payload: {
               id: 8,
@@ -332,7 +332,7 @@ export function project(id) {
         ]
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "POST_FILE",
         payload: {
           id: 9,
@@ -351,7 +351,7 @@ export function project(id) {
         },
         nodes: [
           {
-            timestamp: "2016-08-15T02:02:06.000Z",
+            timestamp: new Date(),
             type: "COMMENT_TEXT",
             payload: {
               id: 10,
@@ -367,7 +367,7 @@ export function project(id) {
             }
           },
           {
-            timestamp: "2016-08-15T02:02:06.000Z",
+            timestamp: new Date(),
             type: "COMMENT_IMAGE",
             payload: {
               id: 11,
@@ -385,7 +385,7 @@ export function project(id) {
             }
           },
           {
-            timestamp: "2016-08-15T02:02:06.000Z",
+            timestamp: new Date(),
             type: "COMMENT_FILE",
             payload: {
               id: 12,
@@ -405,7 +405,7 @@ export function project(id) {
         ]
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "LOG_STATUS_UPDATE",
         payload: {
           doer: {
@@ -416,7 +416,7 @@ export function project(id) {
         }
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "LOG_TAG_ADD",
         payload: {
           doer: {
@@ -430,7 +430,7 @@ export function project(id) {
         }
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "LOG_TAG_REMOVE",
         payload: {
           doer: {
@@ -444,7 +444,7 @@ export function project(id) {
         }
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "LOG_MEMBER_ADD",
         payload: {
           doer: {
@@ -458,7 +458,7 @@ export function project(id) {
         }
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "LOG_MEMBER_REMOVE",
         payload: {
           doer: {
@@ -472,7 +472,7 @@ export function project(id) {
         }
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "LOG_POST_UPDATE",
         payload: {
           doer: {
@@ -486,7 +486,7 @@ export function project(id) {
         }
       },
       {
-        timestamp: "2016-08-15T02:02:06.000Z",
+        timestamp: new Date(),
         type: "LOG_POST_REMOVE",
         payload: {
           doer: {
