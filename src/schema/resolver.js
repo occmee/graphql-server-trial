@@ -1,4 +1,5 @@
-import { makeExecutableSchema } from 'graphql-tools';
+import GraphQLToolsTypes from "graphql-tools-types"
+
 import { project } from '../db/mocks';
 // import { Company, User } from '../db/models';
 
@@ -8,6 +9,7 @@ const fakeDatabase = {
 };
 
 export const resolvers = {
+  Date: GraphQLToolsTypes.Date({ name: "Date" }),
   Query: {
     hello(obj, args, context, info) {
       return 'world';
@@ -18,11 +20,9 @@ export const resolvers = {
     },
 
     company(obj, args, context, info) {
-      /*
       // use database
       return Company.findById(args.id);
-      */
-
+      /*
       // use fakeDatabase
       if(args.id > fakeDatabase.companies.length) {
         return null;
@@ -32,6 +32,7 @@ export const resolvers = {
         company.admin = fakeDatabase.users[company.adminId-1];
       }
       return company;
+      */
     },
 
     user(obj, args, context, info) {
