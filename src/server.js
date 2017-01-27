@@ -1,7 +1,8 @@
 import koa from 'koa'; // koa@2
 import koaRouter from 'koa-router'; // koa-router@next
-import convert from 'koa-convert';
-import graphqlHTTP from 'koa-graphql';
+import koaBody from 'koa-bodyparser'; // koa-bodyparser@next
+import { graphqlKoa, graphiqlKoa } from 'graphql-server-koa';
+
 import { schema } from './schema';
 import { initTables } from './db/models';
 
@@ -11,10 +12,9 @@ const port = process.env.PORT || 3000;
 
 // initTables();
 
-router.all('/graphql', convert(graphqlHTTP({
-  schema,
-  graphiql: true
-})));
+app.use(koaBody());
+router.post('/graphql', graphqlKoa({ schema }));
+router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql' }));
 
 app.use(router.routes());
 app.use(router.allowedMethods());
