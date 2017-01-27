@@ -1,4 +1,3 @@
-// import GraphQLToolsTypes from "graphql-tools-types"
 
 const Query = `
 type Query {
@@ -78,20 +77,26 @@ type Like {
 `;
 
 const Node = `
-type Node {
+interface Node {
   type: NodeType
   timestamp: Date
-  payload: NodeBody
   nodes: [Node]
+  payload: NodePayload
+}
+interface NodePayload {
+  type: NodeType
 }
 `;
 
-const NodeBody = `
-union NodeBody = TextPost | FilePost | StatusLog | TagLog | MemberLog | PostLog
-`;
-
 const TextPost = `
-type TextPost {
+type TextPost implements Node {
+  type: NodeType
+  timestamp: Date
+  nodes: [Node]
+  payload: TextPostPayload
+}
+type TextPostPayload implements NodePayload {
+  type: NodeType
   id: Int
   author: User
   like: Like
@@ -101,7 +106,14 @@ type TextPost {
 `;
 
 const FilePost = `
-type FilePost {
+type FilePost implements Node {
+  type: NodeType
+  timestamp: Date
+  nodes: [Node]
+  payload: FilePostPayload
+}
+type FilePostPayload implements NodePayload {
+  type: NodeType
   id: Int
   author: User
   like: Like
@@ -113,21 +125,42 @@ type FilePost {
 `;
 
 const StatusLog = `
-type StatusLog {
+type StatusLog implements Node {
+  type: NodeType
+  timestamp: Date
+  nodes: [Node]
+  payload: StatusLogPayload
+}
+type StatusLogPayload implements NodePayload {
+  type: NodeType
   doer: User
   status: ProjectStatus
 }
 `;
 
 const TagLog = `
-type TagLog {
+type TagLog implements Node {
+  type: NodeType
+  timestamp: Date
+  nodes: [Node]
+  payload: TagLogPayload
+}
+type TagLogPayload implements NodePayload {
+  type: NodeType
   doer: User
   tag: Tag
 }
 `;
 
 const MemberLog = `
-type MemberLog {
+type MemberLog implements Node {
+  type: NodeType
+  timestamp: Date
+  nodes: [Node]
+  payload: MemberLogPayload
+}
+type MemberLogPayload implements NodePayload {
+  type: NodeType
   doer: User
   member: User
 }
@@ -138,7 +171,14 @@ union Post = TextPost | FilePost
 `;
 
 const PostLog = `
-type PostLog {
+type PostLog implements Node {
+  type: NodeType
+  timestamp: Date
+  nodes: [Node]
+  payload: PostLogPayload
+}
+type PostLogPayload implements NodePayload {
+  type: NodeType
   doer: User
   post: Post
 }
@@ -208,7 +248,6 @@ export const typeDefs = [
   Tag,
   Like,
   Node,
-  NodeBody,
   TextPost,
   FilePost,
   StatusLog,
@@ -225,7 +264,7 @@ export const typeDefs = [
   NodeType,
 `
 schema {
-  query: Query,
+  query: Query
   mutation: Mutation
 }
 
@@ -246,7 +285,16 @@ type __NodeBody {
   status: ProjectStatus
   tag: Tag
   member: User
-  post: NodeBody
   like: Like
 }
 `];
+
+export {
+  Node,
+  TextPost,
+  FilePost,
+  StatusLog,
+  TagLog,
+  MemberLog,
+  PostLog
+}
